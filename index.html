@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Алине 21 — 16.10.2026</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* ====== ЭКРАН ПАРОЛЯ ====== */
+  #lock {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #1F3A5F 0%, #4682B4 100%);
+    font-family: 'Georgia', serif;
+    padding: 20px;
+  }
+  .lock-box {
+    background: white; padding: 40px 30px; border-radius: 20px;
+    text-align: center; max-width: 400px; width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .lock-box h2 { color: #1F3A5F; font-size: 1.6em; margin-bottom: 10px; }
+  .lock-box p { color: #4682B4; margin-bottom: 25px; font-size: 0.95em; }
+  .lock-box input {
+    width: 100%; padding: 15px; font-size: 1.1em; text-align: center;
+    border: 2px solid #cce5ff; border-radius: 12px; margin-bottom: 15px;
+    font-family: 'Georgia', serif; letter-spacing: 3px;
+    outline: none; transition: border 0.3s;
+  }
+  .lock-box input:focus { border-color: #4682B4; }
+  .lock-box button {
+    width: 100%; padding: 15px; font-size: 1.1em;
+    background: linear-gradient(135deg, #1F3A5F, #4682B4);
+    color: white; border: none; border-radius: 12px;
+    cursor: pointer; font-family: 'Georgia', serif;
+    transition: transform 0.2s;
+  }
+  .lock-box button:hover { transform: scale(1.03); }
+  .lock-error {
+    color: #c0392b; margin-top: 15px; font-size: 0.9em;
+    display: none;
+  }
+  .lock-heart { font-size: 3em; margin-bottom: 10px; }
+
+  /* ====== ОСНОВНОЙ САЙТ ====== */
+  body {
+    font-family: 'Georgia', serif;
+    background: linear-gradient(135deg, #e6f2ff 0%, #ffffff 50%, #cce5ff 100%);
+    color: #1F3A5F; line-height: 1.7;
+  }
+  #site { display: none; }
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+  header {
+    text-align: center; padding: 60px 20px;
+    background: linear-gradient(135deg, #1F3A5F 0%, #4682B4 100%);
+    color: white; border-radius: 20px; margin-bottom: 40px;
+    box-shadow: 0 10px 40px rgba(31, 58, 95, 0.3);
+  }
+  header h1 { font-size: 3.5em; letter-spacing: 2px; margin-bottom: 10px; }
+  header p { font-size: 1.2em; opacity: 0.95; }
+  .timer {
+    background: white; padding: 30px; border-radius: 20px;
+    text-align: center; margin-bottom: 40px;
+    box-shadow: 0 5px 25px rgba(31, 58, 95, 0.15);
+  }
+  .timer h2 { color: #4682B4; margin-bottom: 20px; font-size: 1.5em; }
+  .timer-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 15px;
+  }
+  .timer-cell {
+    background: linear-gradient(135deg, #1F3A5F, #4682B4);
+    color: white; padding: 20px 10px; border-radius: 12px;
+  }
+  .timer-cell .value { font-size: 2.2em; font-weight: bold; }
+  .timer-cell .label { font-size: 0.85em; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; }
+  .section-title {
+    text-align: center; font-size: 2em; color: #1F3A5F;
+    margin: 40px 0 30px;
+  }
+  .section-title::after {
+    content: ''; display: block; width: 80px; height: 3px;
+    background: #4682B4; margin: 15px auto; border-radius: 2px;
+  }
+  .reasons {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px; margin-bottom: 40px;
+  }
+  .reason {
+    background: white; padding: 25px; border-radius: 15px;
+    border-left: 4px solid #4682B4;
+    box-shadow: 0 3px 15px rgba(31, 58, 95, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex; gap: 15px; align-items: flex-start;
+  }
+  .reason:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(31, 58, 95, 0.2); }
+  .reason .num { font-size: 1.5em; font-weight: bold; color: #4682B4; min-width: 40px; }
+  .reason p { font-size: 1.05em; }
+  .secret { text-align: center; margin: 60px 0; }
+  .secret button {
+    background: linear-gradient(135deg, #1F3A5F, #4682B4);
+    color: white; border: none; padding: 18px 45px; font-size: 1.1em;
+    border-radius: 50px; cursor: pointer; font-family: 'Georgia', serif;
+    box-shadow: 0 5px 20px rgba(31, 58, 95, 0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .secret button:hover { transform: scale(1.05); box-shadow: 0 8px 30px rgba(31, 58, 95, 0.5); }
+  .secret-content {
+    display: none; background: white; padding: 40px;
+    border-radius: 20px; margin-top: 30px;
+    box-shadow: 0 5px 25px rgba(31, 58, 95, 0.15);
+    animation: fadeIn 1s;
+  }
+  .secret-content.show { display: block; }
+  .secret-content p { font-size: 1.15em; font-style: italic; line-height: 2; color: #1F3A5F; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .final {
+    text-align: center; padding: 60px 20px;
+    background: linear-gradient(135deg, #1F3A5F 0%, #4682B4 100%);
+    color: white; border-radius: 20px; margin-top: 40px;
+    box-shadow: 0 10px 40px rgba(31, 58, 95, 0.3);
+  }
+  .final h2 { font-size: 2.5em; margin-bottom: 20px; }
+  .final p { font-size: 1.2em; line-height: 2; }
+  footer { text-align: center; padding: 30px; color: #4682B4; font-style: italic; }
+</style>
+</head>
+<body>
+
+<!-- ЭКРАН ПАРОЛЯ -->
+<div id="lock">
+  <div class="lock-box">
+    <div class="lock-heart">💙</div>
+    <h2>Это только для тебя</h2>
+    <p>Введи дату, которая важна для нас</p>
+    <input type="password" id="passInput" placeholder="• • • • • • • •" maxlength="8" inputmode="numeric">
+    <button onclick="checkPass()">Открыть</button>
+    <div class="lock-error" id="lockError">Не та дата. Попробуй ещё раз 💙</div>
+  </div>
+</div>
+
+<!-- САЙТ -->
+<div id="site">
+<div class="container">
+
+  <header>
+    <h1>Алине 21</h1>
+    <p>16 октября 2026 · Хабаровск</p>
+  </header>
+
+  <div class="timer">
+    <h2>Мы вместе уже</h2>
+    <div class="timer-grid" id="timer">
+      <div class="timer-cell"><div class="value" id="days">0</div><div class="label">дней</div></div>
+      <div class="timer-cell"><div class="value" id="hours">0</div><div class="label">часов</div></div>
+      <div class="timer-cell"><div class="value" id="minutes">0</div><div class="label">минут</div></div>
+      <div class="timer-cell"><div class="value" id="seconds">0</div><div class="label">секунд</div></div>
+    </div>
+  </div>
+
+  <h2 class="section-title">21 причина любить тебя</h2>
+  <div class="reasons">
+        <div class="reason"><span class="num">01</span><p>Потому что когда ты смеёшься — у меня внутри что-то светлое просыпается.</p></div>
+        <div class="reason"><span class="num">02</span><p>Потому что ты умеешь слушать так, как никто другой. Даже когда я молчу.</p></div>
+        <div class="reason"><span class="num">03</span><p>Потому что с тобой тепло, даже когда на улице минус тридцать.</p></div>
+        <div class="reason"><span class="num">04</span><p>Потому что ты первая, кому я хочу рассказать всё хорошее и всё плохое.</p></div>
+        <div class="reason"><span class="num">05</span><p>Потому что ты помнишь наши даты, даже те, которые я забыл.</p></div>
+        <div class="reason"><span class="num">06</span><p>Потому что когда мы на набережной — весь город будто наш.</p></div>
+        <div class="reason"><span class="num">07</span><p>Потому что ты не боишься спорить со мной, когда я не прав.</p></div>
+        <div class="reason"><span class="num">08</span><p>Потому что ты поддерживаешь меня, даже когда я сам в себя не верю.</p></div>
+        <div class="reason"><span class="num">09</span><p>Потому что ты любишь роллы так же сильно, как я люблю смотреть, как ты их ешь.</p></div>
+        <div class="reason"><span class="num">10</span><p>Потому что у тебя глаза, в которых можно утонуть и не захотеть спасаться.</p></div>
+        <div class="reason"><span class="num">11</span><p>Потому что ты выбрала ту же дорогу в жизни, что и я. Мы идём рядом.</p></div>
+        <div class="reason"><span class="num">12</span><p>Потому что когда ты злишься — ты всё равно самая красивая на свете.</p></div>
+        <div class="reason"><span class="num">13</span><p>Потому что с тобой обычная поездка на машине превращается в приключение.</p></div>
+        <div class="reason"><span class="num">14</span><p>Потому что ты умеешь мечтать так, что я начинаю верить в невозможное.</p></div>
+        <div class="reason"><span class="num">15</span><p>Потому что ты любишь розы — и я хочу дарить их тебе всю жизнь.</p></div>
+        <div class="reason"><span class="num">16</span><p>Потому что ты не боишься быть собой. Рядом с тобой я тоже перестаю бояться.</p></div>
+        <div class="reason"><span class="num">17</span><p>Потому что ты умеешь молчать вместе со мной — и это не неловко, а хорошо.</p></div>
+        <div class="reason"><span class="num">18</span><p>Потому что ты напоминаешь мне, что важно не только думать, но и чувствовать.</p></div>
+        <div class="reason"><span class="num">19</span><p>Потому что ты — тот человек, с которым я хочу проснуться завтра. И через год. И через двадцать.</p></div>
+        <div class="reason"><span class="num">20</span><p>Потому что ты моя зайка. Больше тут ничего не нужно.</p></div>
+        <div class="reason"><span class="num">21</span><p>Потому что из всех людей в мире — ты выбрала меня. И я не знаю, чем заслужил это.</p></div>
+  </div>
+
+  <div class="secret">
+    <button onclick="document.getElementById('secret').classList.toggle('show')">
+      Нажми, если грустно 💙
+    </button>
+    <div class="secret-content" id="secret">
+      <p>«Когда тебе грустно — вспомни, что где-то есть человек,
+      который думает о тебе прямо сейчас.<br><br>
+      Этот человек — я. И я всегда рядом.<br><br>
+      Ты моя зайка. И это не изменится никогда».</p>
+    </div>
+  </div>
+
+  <div class="final">
+    <h2>С днём рождения, любимая</h2>
+    <p>
+      Ты — то, чего я не знал, что ищу.<br>
+      И теперь без этого не могу.<br><br>
+      Я не умею красиво говорить.<br>
+      Но рядом с тобой я учусь. Каждый день.<br><br>
+      Спасибо, что ты есть.<br>
+      Просто есть.<br>
+      Этого достаточно, чтобы быть счастливым.
+    </p>
+  </div>
+
+  <footer>
+    Сделано руками. Для тебя. 16.10.2026
+  </footer>
+</div>
+</div>
+
+<script>
+  // ====== ПАРОЛЬ ======
+  const PASSWORD = "01012025";
+  function checkPass() {
+    const input = document.getElementById('passInput').value.trim();
+    if (input === PASSWORD) {
+      document.getElementById('lock').style.display = 'none';
+      document.getElementById('site').style.display = 'block';
+      localStorage.setItem('alina_unlocked', 'yes');
+    } else {
+      document.getElementById('lockError').style.display = 'block';
+      document.getElementById('passInput').value = '';
+    }
+  }
+  document.getElementById('passInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') checkPass();
+  });
+  // Если уже вводила — не спрашиваем снова
+  if (localStorage.getItem('alina_unlocked') === 'yes') {
+    document.getElementById('lock').style.display = 'none';
+    document.getElementById('site').style.display = 'block';
+  }
+
+  // ====== ТАЙМЕР ======
+  const start = new Date(2025, 0, 1, 0, 0, 0);
+  function updateTimer() {
+    const now = new Date();
+    let diff = Math.floor((now - start) / 1000);
+    const days = Math.floor(diff / 86400); diff -= days * 86400;
+    const hours = Math.floor(diff / 3600); diff -= hours * 3600;
+    const minutes = Math.floor(diff / 60); diff -= minutes * 60;
+    const seconds = diff;
+    document.getElementById('days').textContent = days.toLocaleString('ru-RU');
+    document.getElementById('hours').textContent = hours;
+    document.getElementById('minutes').textContent = minutes;
+    document.getElementById('seconds').textContent = seconds;
+  }
+  updateTimer();
+  setInterval(updateTimer, 1000);
+</script>
+</body>
+</html>
